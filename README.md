@@ -6,8 +6,8 @@ Use the generated makefiles to finish the build. The executable to run your test
 I am using the gcc g++ compiler, cygwin bash shell and cmake configured to run on my command line.
 
 To run my tests to get started on Test Driven Development I run these four commands.
-	1st "cmake -G "Unix Makefiles" . "
-	2nd "make"
-	3rd "cd test"
-	4th "HuntTheWampusTests.exe"
+	1st 'cmake -G "Unix Makefiles" . '
+	2nd 'make'
+	3rd 'cd test'
+	4th 'HuntTheWampusTests.exe'
 to recompile use the make command.
