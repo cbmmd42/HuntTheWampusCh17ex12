@@ -11,3 +11,14 @@ To run my tests to get started on Test Driven Development I run these four comma
 	3rd 'cd test'
 	4th 'HuntTheWampusTests.exe'
 to recompile use the make command.
+
+general plan
+
+while(exitcondition)
+	IGame Indication
+	IGame Prompt
+	IGame input
+	IGame move or shoot
+	IGame Prompt
+	exit condition = IGame verify
+	

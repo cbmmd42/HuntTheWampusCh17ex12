@@ -7,7 +7,9 @@ class IGame {
 	IPlayer* player;
 public:
 	IGame(IPlayer& p);
-	std::string move();
+	virtual void prompt(std::string s);
+	virtual std::string move(int roomChoice);
+	virtual std::string indication();
 };
 
 #endif /*IGAME_HPP*/

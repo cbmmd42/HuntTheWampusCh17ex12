@@ -5,7 +5,16 @@ IGame::IGame(IPlayer& p)
 	player = &p;
 }
 
-std::string IGame::move(){
-		std::string prompt = player->move();
-		return prompt;
+void IGame::prompt(std::string s){
+	std::cout << s;
+}
+
+std::string IGame::move(int roomChoice){
+		std::string roomNumber = player->move(roomChoice);
+		
+		return "You moved to room " + roomNumber;
+}
+
+std::string IGame::indication(){
+		return player->soundsHeard();
 }

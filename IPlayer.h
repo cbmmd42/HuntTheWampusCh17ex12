@@ -4,7 +4,8 @@
 
 class IPlayer {
 	public:
-	virtual std::string move();
+	virtual std::string move(int roomChoice);
+	virtual std::string soundsHeard();
 };
 
 #endif /*IPLAYER_HPP*/
