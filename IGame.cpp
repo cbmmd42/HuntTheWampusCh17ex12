@@ -11,7 +11,7 @@ void IGame::prompt(std::string s){
 
 std::string IGame::move(int roomChoice){
 		std::string roomNumber = player->move(roomChoice);
-		
+		//prompt("You moved to room " + roomNumber);
 		return "You moved to room " + roomNumber;
 }
 
