@@ -3,6 +3,13 @@
 IGame::IGame(IPlayer& p)
 {
 	player = &p;
+	gameInput = new IUserInput();
+}
+
+IGame::IGame(IPlayer& p, IUserInput& i)
+{
+	player = &p;
+	gameInput = &i;
 }
 
 void IGame::prompt(std::string s){
@@ -16,5 +23,22 @@ std::string IGame::move(int roomChoice){
 }
 
 std::string IGame::indication(){
-		return player->soundsHeard();
+		std::string sound = player->soundsHeard();
+		prompt(sound);
+		return sound;
+}
+
+bool isValid(std::string s) {
+	if(s == "move" || s == "shoot"){
+		return true;
+	}
+	return false;
+}
+
+char IGame::userInput() {
+	std::string input = gameInput->getInput();
+	while(!isValid(input)){
+		input = gameInput->getInput();
+	}		
+	return input[0];
 }

@@ -18,7 +18,7 @@ while(exitcondition)
 	IGame Indication
 	IGame Prompt
 	IGame input
-	IGame move or shoot
+	IGame action(move or shoot)
 	IGame Prompt
 	exit condition = IGame verify
 	

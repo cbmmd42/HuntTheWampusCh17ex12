@@ -14,11 +14,13 @@ add_subdirectory(googletest)
 set(Headers 
 	IGame.h
 	IPlayer.h
+	IUserInput.h
 )
 
 set(Sources
 	IGame.cpp
 	IPlayer.cpp
+	IUserInput.cpp
 )
 
 add_library(${This} STATIC ${Headers} ${Sources})
