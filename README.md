@@ -15,10 +15,10 @@ to recompile use the make command.
 general plan
 
 while(exitcondition)
-	IGame Indication
-	IGame Prompt
-	IGame input
-	IGame action(move or shoot)
-	IGame Prompt
+	IGame Indication done
+	IGame Prompt done 
+	IGame input 
+	IGame action(move or shoot) done 
+	IGame Prompt done 
 	exit condition = IGame verify
 	
