@@ -11,16 +11,18 @@ enable_testing()
 
 add_subdirectory(googletest)
 
+include_directories(./headers/)
+
 set(Headers 
-	IGame.h
-	IPlayer.h
-	IUserInput.h
+	headers/IGame.h
+	headers/IPlayer.h
+	headers/IUserInput.h
 )
 
 set(Sources
-	IGame.cpp
-	IPlayer.cpp
-	IUserInput.cpp
+	sources/IGame.cpp
+	sources/IPlayer.cpp
+	sources/IUserInput.cpp
 )
 
 add_library(${This} STATIC ${Headers} ${Sources})
