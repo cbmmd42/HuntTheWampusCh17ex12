@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include "../IGame.h"
-#include "../IPlayer.h"
+#include "IGame.h"
+#include "IPlayer.h"
 
 using ::testing::Return;
 using ::testing::Assign;
