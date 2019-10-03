@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.15.3)
 
-set(This HuntTheWampusTests)
+set(This IGameTests)
 
 set(Sources
-	HuntTheWampusTests.cpp
+	IGameTests.cpp
 )
 
 add_executable(${This} ${Sources})
@@ -11,7 +11,7 @@ add_executable(${This} ${Sources})
 target_link_libraries(${This} PUBLIC
 	gtest_main
 	gmock_main
-	HuntTheWampus
+	IGame
 )
 
 add_test(
