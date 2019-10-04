@@ -5,12 +5,16 @@
 
 using ::testing::Return;
 using ::testing::Assign;
+using ::testing::_;
 
 class MockPlayer : public IPlayer {
 public:
 	MOCK_METHOD1(move, std::string(int roomChoice));
 	MOCK_METHOD3(shoot, bool(int roomNo1,int roomNo2,int roomNo3));
 	MOCK_METHOD0(soundsHeard, std::string());
+	MOCK_METHOD0(isAlive, bool());
+	MOCK_METHOD0(wampusLives, bool());
+	
 };
 
 class MockUserInput : public IUserInput {
@@ -18,9 +22,10 @@ public:
 	MOCK_METHOD0(getInput, std::string());
 	MOCK_METHOD0(getInputMove, int());
 	MOCK_METHOD3(getInputShoot, void(int& firstRoom, int& secondRoom, int& thirdRoom));
+	MOCK_METHOD0(lastInput, std::string());
 };
 
-TEST(HuntTheWampusTests, GameInterfaceMove){
+TEST(IGameTests, GameInterfaceMove){
 	MockPlayer mp;
 	IGame g(mp);
 	
@@ -34,7 +39,7 @@ TEST(HuntTheWampusTests, GameInterfaceMove){
 	EXPECT_EQ(actual, "You moved to room 13");
 }
 
-TEST(HuntTheWampusTests, GameInterfaceShoot){
+TEST(IGameTests, GameInterfaceShoot){
 	MockPlayer mp;
 	IGame g(mp);
 	
@@ -48,7 +53,7 @@ TEST(HuntTheWampusTests, GameInterfaceShoot){
 	EXPECT_EQ(actual, "You missed the wampus");
 }
 
-TEST(HuntTheWampusTests, GameInterfaceIndication){
+TEST(IGameTests, GameInterfaceIndication){
 	MockPlayer mp;
 	IGame g(mp);
 	
@@ -62,7 +67,7 @@ TEST(HuntTheWampusTests, GameInterfaceIndication){
 	EXPECT_EQ(actual, "I hear a breeze");
 }
 
-TEST(HuntTheWampusTests, GameInterfacePrompt){
+TEST(IGameTests, GameInterfacePrompt){
 	MockPlayer mp;
 	IGame g(mp);
 	
@@ -70,7 +75,7 @@ TEST(HuntTheWampusTests, GameInterfacePrompt){
 	std::cout << '\n';
 }
 
-TEST(HuntTheWampusTests, GameInterfaceUserInput){
+TEST(IGameTests, GameInterfaceUserInput){
 	MockPlayer mp;
 	MockUserInput i;
 	IGame g(mp,i);
@@ -84,7 +89,7 @@ TEST(HuntTheWampusTests, GameInterfaceUserInput){
 	EXPECT_EQ(actual, expected);
 }
 
-TEST(HuntTheWampusTests, GameInterfaceUserInputTypo){
+TEST(IGameTests, GameInterfaceUserInputTypo){
 	MockPlayer mp;
 	MockUserInput i;
 	IGame g(mp,i);
@@ -99,7 +104,7 @@ TEST(HuntTheWampusTests, GameInterfaceUserInputTypo){
 	EXPECT_EQ(actual, expected);
 }
 
-TEST(HuntTheWampusTests, GameInterfaceUserInputShoot){
+TEST(IGameTests, GameInterfaceUserInputShoot){
 	MockPlayer mp;
 	MockUserInput i;
 	IGame g(mp,i);
@@ -113,7 +118,7 @@ TEST(HuntTheWampusTests, GameInterfaceUserInputShoot){
 	EXPECT_EQ(actual, expected);
 }
 
-TEST(HuntTheWampusTests, GameInterfaceUserInputOverloadMove){
+TEST(IGameTests, GameInterfaceUserInputOverloadMove){
 	MockPlayer mp;
 	MockUserInput i;
 	IGame g(mp,i);
@@ -128,7 +133,7 @@ TEST(HuntTheWampusTests, GameInterfaceUserInputOverloadMove){
 	EXPECT_EQ(actual, expected);
 }
 
-TEST(HuntTheWampusTests, GameInterfaceUserInputOverloadShoot){
+TEST(IGameTests, GameInterfaceUserInputOverloadShoot){
 	MockPlayer mp;
 	MockUserInput i;
 	IGame g(mp,i);
@@ -150,4 +155,66 @@ TEST(HuntTheWampusTests, GameInterfaceUserInputOverloadShoot){
 	EXPECT_EQ(actualSecond, expectedSecond);
 	EXPECT_EQ(actualThird, expectedThird);
 }
+
+TEST(IGameTests, GameInterfaceVerifyTrue){
+	MockPlayer mp;
+	MockUserInput i;
+	IGame g(mp,i);
+	//functions return false if lastInput == "quit" then !wampusLives then !isAlive
+	//expect calls to those functions only if the previouse one succeeds 
+	EXPECT_CALL(i, lastInput())
+	.Times(1)
+	.WillOnce(Return("move"));
+	
+	EXPECT_CALL(mp, isAlive())
+	.Times(1)
+	.WillOnce(Return(true));
+	
+	EXPECT_CALL(mp, wampusLives())
+	.Times(1)
+	.WillOnce(Return(true));
+	
+	bool actual = g.verify();
+	
+	EXPECT_TRUE(actual);
+}
+
+TEST(IGameTests, GameInterfaceVerifyFalseQuit){
+	MockPlayer mp;
+	MockUserInput i;
+	IGame g(mp,i);
+	
+	EXPECT_CALL(i, lastInput())
+	.Times(1)
+	.WillOnce(Return("quit"));
+	//do not expect the calls of the other function because verify returns
+	
+	bool actual = g.verify();
+	
+	EXPECT_FALSE(actual);
+}
+
+TEST(IGameTests, GameInterfaceVerifyFalse){
+	MockPlayer mp;
+	MockUserInput i;
+	IGame g(mp,i);
+	
+	EXPECT_CALL(i, lastInput())
+	.Times(1)
+	.WillOnce(Return("move"));
+	
+	EXPECT_CALL(mp, wampusLives())
+	.Times(1)
+	.WillOnce(Return(true));
+	
+	EXPECT_CALL(mp, isAlive())
+	.Times(1)
+	.WillOnce(Return(false));	
+	
+	bool actual = g.verify();
+	
+	EXPECT_FALSE(actual);
+}
+
+
 
