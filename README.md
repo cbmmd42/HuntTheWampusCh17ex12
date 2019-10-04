@@ -54,11 +54,4 @@ exit condition = IGame verify done
 	implementation IPlayer -- -- isAlive()
 	implementation IUserInput -- -- lastInput()
 	
-
-
-IGame Indication 
-		
-
-IGame Prompt 
-	
-	
+Since I have to implement two classes I have to set up two unit tests.
