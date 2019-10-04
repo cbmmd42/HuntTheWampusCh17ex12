@@ -54,3 +54,11 @@ void IGame::userInput(int& roomNumber) {
 void IGame::userInput(int& firstRoom, int& secondRoom, int& thirdRoom){
 	gameInput->getInputShoot(firstRoom, secondRoom, thirdRoom);
 }
+
+bool IGame::verify(){
+	bool keepPlaying = true;
+	if(gameInput->lastInput() == "quit") return false;
+	if(!player->wampusLives()) return false;
+	if(!player->isAlive()) return false;	
+	return keepPlaying;
+}

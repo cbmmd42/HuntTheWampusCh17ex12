@@ -17,6 +17,7 @@ public:
 	virtual char userInput();
 	virtual void userInput(int& roomNumber);
 	virtual void userInput(int& firstRoom, int& secondRoom, int& thirdRoom);
+	virtual bool verify();
 };
 
 #endif /*IGAME_HPP*/
