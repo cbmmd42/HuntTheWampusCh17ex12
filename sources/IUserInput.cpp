@@ -4,6 +4,10 @@ std::string IUserInput::getInput(){
 	return "";
 }
 
+std::string IUserInput::lastInput(){
+	return "";
+}
+
 int IUserInput::getInputMove(){
 	return 0;
 }
