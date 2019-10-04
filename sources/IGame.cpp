@@ -41,7 +41,7 @@ bool isValid(std::string s) {
 
 char IGame::userInput() {
 	std::string input = gameInput->getInput();
-	while(!isValid(input)){
+	while(!isValid(input)){ // refactor to put isValid in UserInput
 		input = gameInput->getInput();
 	}		
 	return input[0];
