@@ -23,11 +23,42 @@ To run my tests to get started on Test Driven Development I run these commands.
 
 general plan
 
+top down design phase one
+
 while(exitcondition)
 	IGame Indication done
 	IGame Prompt done 
-	IGame input 
+	IGame input done
 	IGame action(move or shoot) done 
 	IGame Prompt done 
-	exit condition = IGame verify
+	exit condition = IGame verify done
+	
+top down design phase two
+
+IGame Indication done
+	implementation IPlayer -- -- soundsHeard()
+IGame Prompt done 
+	implementation done 
+IGame input done
+	implementation IUserInput -- -- getInput()
+	implementation IUserInput -- -- isValid()
+	implementation IUserInput -- -- getInputMove()
+	implementation IUserInput -- -- getInputShoot(firstRoom, secondRoom, thirdRoom)
+IGame action(move or shoot) done 
+	implementation IPlayer -- -- move(roomChoice)
+	implementation IPlayer -- -- shoot(roomNo1,roomNo2,roomNo3)
+IGame Prompt done 
+	implementation done
+exit condition = IGame verify done
+	implementation IPlayer -- -- wampusLives()
+	implementation IPlayer -- -- isAlive()
+	implementation IUserInput -- -- lastInput()
+	
+
+
+IGame Indication 
+		
+
+IGame Prompt 
+	
 	
