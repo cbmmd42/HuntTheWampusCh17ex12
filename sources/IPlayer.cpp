@@ -5,9 +5,17 @@ std::string IPlayer::move(int roomChoice){
 	return roomNumber;
 }
 
-//bool IPlayer::shoot(int roomNo1, int roomNo2, int roomNo3){
-	//return false;
-//}
+bool IPlayer::shoot(int roomNo1, int roomNo2, int roomNo3){
+	return false;
+}
+
+bool IPlayer::isAlive() {
+	return true;
+}
+
+bool IPlayer::wampusLives(){
+	return true;
+}
 
 std::string IPlayer::soundsHeard() {
 	//std::string roomNumber = "13";
