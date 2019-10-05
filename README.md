@@ -55,3 +55,8 @@ exit condition = IGame verify done
 	implementation IUserInput -- -- lastInput()
 	
 Since I have to implement two classes I have to set up two unit tests.
+
+
+
+to do Major refactoring all of the classes labled as interfaces must be made into classes with pure virtual functions and
+then real derived classes must be made with their respective implementations
