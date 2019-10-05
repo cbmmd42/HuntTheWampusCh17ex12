@@ -18,7 +18,7 @@ void IGame::prompt(std::string s){
 
 std::string IGame::move(int roomChoice){
 		std::string roomNumber = player->move(roomChoice);
-		prompt("You moved to room " + roomNumber);
+		prompt("You moved to room " + roomNumber); //refactor separate input and output from actual game logic
 		return "You moved to room " + roomNumber;
 }
 
