@@ -7,7 +7,7 @@ using ::testing::Return;
 using ::testing::Assign;
 using ::testing::_;
 
-class MockPlayer : public IPlayer {
+class MockPlayer : public IPlayer { // refactor this by makeing it its own file
 public:
 	MOCK_METHOD1(move, std::string(int roomChoice));
 	MOCK_METHOD3(shoot, bool(int roomNo1,int roomNo2,int roomNo3));
@@ -17,7 +17,7 @@ public:
 	
 };
 
-class MockUserInput : public IUserInput {
+class MockUserInput : public IUserInput { // refactor this by making it its own file then including it
 public:
 	MOCK_METHOD0(getInput, std::string());
 	MOCK_METHOD0(getInputMove, int());
