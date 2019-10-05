@@ -1,7 +1,17 @@
 #include "IPlayer.h"
 
+IPlayer::IPlayer(){
+	playerLocation = nullptr;
+}
+
+IPlayer::IPlayer(ILocation& l){
+	playerLocation = &l;
+}
+
 std::string IPlayer::move(int roomChoice){
-	std::string roomNumber = "13";
+	playerLocation = playerLocation->goThroughTunnel(roomChoice);
+	int roomNumberInt = playerLocation->roomNumber();
+	std::string roomNumber = std::to_string(roomNumberInt);
 	return roomNumber;
 }
 
