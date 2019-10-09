@@ -62,3 +62,8 @@ bool IGame::verify(){
 	if(!player->isAlive()) return false;	
 	return keepPlaying;
 }
+
+std::string IGame::connectedRooms(int& first, int& second, int& third){
+	player->connectedRooms(first,second,third);
+	return std::to_string(first) + " " + std::to_string(second) + " " + std::to_string(third);
+}
