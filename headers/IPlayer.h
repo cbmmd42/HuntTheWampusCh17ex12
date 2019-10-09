@@ -10,6 +10,7 @@ public:
 	virtual std::string move(int roomChoice);
 	virtual bool shoot(int roomNo1,int roomNo2, int roomNo3);
 	virtual std::string soundsHeard();
+	virtual void connectedRooms(int& first, int& second, int& third);
 	virtual bool isAlive();
 	virtual bool wampusLives();
 private:
