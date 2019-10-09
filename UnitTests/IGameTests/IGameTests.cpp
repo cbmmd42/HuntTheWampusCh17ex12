@@ -14,6 +14,7 @@ public:
 	MOCK_METHOD0(soundsHeard, std::string());
 	MOCK_METHOD0(isAlive, bool());
 	MOCK_METHOD0(wampusLives, bool());
+	MOCK_METHOD3(connectedRooms, void(int& first, int& second, int& third));
 	
 };
 
@@ -48,7 +49,6 @@ TEST(IGameTests, GameInterfaceShoot){
 	.WillOnce(Return(false));
 	
 	std::string actual = g.shoot(3, 14 ,16);
-	//std::cout << '\n';
 	
 	EXPECT_EQ(actual, "You missed the wampus");
 }
@@ -86,6 +86,27 @@ TEST(IGameTests, GameInterfaceUserInput){
 	
 	char actual = g.userInput();
 	char expected = 'm';
+	EXPECT_EQ(actual, expected);
+}
+
+TEST(IGameTests, GameInterfaceConnectedRooms){
+	MockPlayer mp;
+	MockUserInput i;
+	IGame g(mp,i);
+	
+	int actualFirst = 0;
+	int actualSecond = 0;
+	int actualThird = 0;
+	
+	EXPECT_CALL(mp, connectedRooms(actualFirst,actualSecond,actualThird))
+	.Times(1)
+	.WillOnce(DoAll(Assign(&actualFirst, 13),Assign(&actualSecond, 4),Assign(&actualThird, 46)));
+	
+	std::string actual = g.connectedRooms(actualFirst,actualSecond,actualThird);
+	std::string expected = "13 4 46";
+	EXPECT_EQ(actualFirst,13);
+	EXPECT_EQ(actualSecond,4);
+	EXPECT_EQ(actualThird, 46);
 	EXPECT_EQ(actual, expected);
 }
 
