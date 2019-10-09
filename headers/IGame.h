@@ -11,6 +11,7 @@ public:
 	IGame(IPlayer& p);
 	IGame(IPlayer& p, IUserInput& i);
 	virtual void prompt(std::string s);
+	virtual std::string connectedRooms(int& first, int& second, int& third);
 	virtual std::string move(int roomChoice);
 	virtual std::string shoot(int roomNo1, int roomNo2, int roomNo3);
 	virtual std::string indication();
