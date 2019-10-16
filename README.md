@@ -19,6 +19,8 @@ To run my tests to get started on Test Driven Development I run these commands.
 	5th run 'IGameTests.exe'
 	6th make changes to IGameTests.cpp and save
 	7th run make again from the current directory
+	
+(UPDATE) I am no longer using cygwin to develope my program. I am using a windows linux subsystem running umbuntu.
 
 
 general plan
