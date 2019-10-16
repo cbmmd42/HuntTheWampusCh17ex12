@@ -89,6 +89,7 @@ TEST(IGameTests, GameInterfaceUserInput){
 	EXPECT_EQ(actual, expected);
 }
 
+
 TEST(IGameTests, GameInterfaceConnectedRooms){
 	MockPlayer mp;
 	MockUserInput i;
