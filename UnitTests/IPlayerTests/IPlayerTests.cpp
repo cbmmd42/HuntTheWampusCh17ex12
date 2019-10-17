@@ -5,6 +5,7 @@
 
 using ::testing::Return;
 using ::testing::Assign;
+using ::testing::_;
 
 
 class MockLocation : public ILocation { // refactor this by making it its own file then include it
@@ -92,7 +93,7 @@ TEST(IPlayerTests, PlayerShootWampusInFirst){
 		.WillOnce(Return(pLocation1ConToRm5));
 	EXPECT_CALL(*pLocation1ConToRm5, thingStr())
 		.Times(1)
-		.WillOnce(Return("Wampus"));	
+		.WillOnce(Return("wampus"));	
 	bool actual = player.shoot(5,7,54);
 	
 	EXPECT_TRUE(actual);
@@ -114,7 +115,7 @@ TEST(IPlayerTests, PlayerShootWampusInSecond){
 		.WillOnce(Return(pLocation1ConToRm5));
 	EXPECT_CALL(*pLocation1ConToRm5, thingStr())
 		.Times(1)
-		.WillOnce(Return("Bat"));
+		.WillOnce(Return("bat"));
 	EXPECT_CALL(*pLocation1ConToRm5, findTunnelNoFromRoomNo(7))
 		.Times(1)
 		.WillOnce(Return(2));
@@ -123,7 +124,7 @@ TEST(IPlayerTests, PlayerShootWampusInSecond){
 		.WillOnce(Return(pLocation5ConToRm7));
 	EXPECT_CALL(*pLocation5ConToRm7, thingStr())
 		.Times(1)
-		.WillOnce(Return("Wampus"));
+		.WillOnce(Return("wampus"));
 	
 	bool actual = player.shoot(5,7,54);
 	
@@ -150,7 +151,7 @@ TEST(IPlayerTests, PlayerShootWampusInThird){
 		.WillOnce(Return(pLocation1ConToRm5));
 	EXPECT_CALL(*pLocation1ConToRm5, thingStr())
 		.Times(1)
-		.WillOnce(Return("Bat"));
+		.WillOnce(Return("bat"));
 	EXPECT_CALL(*pLocation1ConToRm5, findTunnelNoFromRoomNo(7))
 		.Times(1)
 		.WillOnce(Return(2));
@@ -159,7 +160,7 @@ TEST(IPlayerTests, PlayerShootWampusInThird){
 		.WillOnce(Return(pLocation5ConToRm7));
 	EXPECT_CALL(*pLocation5ConToRm7, thingStr())
 		.Times(1)
-		.WillOnce(Return("Pit"));
+		.WillOnce(Return("pit"));
 	EXPECT_CALL(*pLocation5ConToRm7, findTunnelNoFromRoomNo(54))
 		.Times(1)
 		.WillOnce(Return(3));
@@ -168,7 +169,7 @@ TEST(IPlayerTests, PlayerShootWampusInThird){
 		.WillOnce(Return(pLocation7ConToRm54));
 	EXPECT_CALL(*pLocation7ConToRm54, thingStr())
 		.Times(1)
-		.WillOnce(Return("Wampus"));
+		.WillOnce(Return("wampus"));
 	
 	
 	bool actual = player.shoot(5,7,54);
@@ -178,6 +179,63 @@ TEST(IPlayerTests, PlayerShootWampusInThird){
 	delete pLocation1ConToRm5; 
 	delete pLocation5ConToRm7;
 	delete pLocation7ConToRm54;	
+}
+
+TEST(IPlayerTests, PlayerSoundsHeardJustBat){
+	MockLocation pLocation23ConToRm54;
+	MockLocation* pLocation54ConToRm23 = new MockLocation();
+	IPlayer player(pLocation23ConToRm54); 
+	
+	EXPECT_CALL(pLocation23ConToRm54, goThroughTunnel(1))
+		.Times(1)
+		.WillOnce(Return(pLocation54ConToRm23));
+	EXPECT_CALL(*pLocation54ConToRm23, thingStr())
+		.Times(1)
+		.WillOnce(Return("bat"));
+		
+	std::string expected = "I hear a bat";
+	std::string actual = player.soundsHeard(1);
+	
+	EXPECT_EQ(actual,expected);	
+	delete pLocation54ConToRm23;
+}
+
+TEST(IPlayerTests, PlayerSoundsHeardJustPit){
+	MockLocation pLocation23ConToRm54;
+	MockLocation* pLocation54ConToRm23 = new MockLocation();
+	IPlayer player(pLocation23ConToRm54); 
+	
+	EXPECT_CALL(pLocation23ConToRm54, goThroughTunnel(1))
+		.Times(1)
+		.WillOnce(Return(pLocation54ConToRm23));
+	EXPECT_CALL(*pLocation54ConToRm23, thingStr())
+		.Times(1)
+		.WillOnce(Return("pit"));
+		
+	std::string expected = "I hear a breeze";
+	std::string actual = player.soundsHeard(1);
+	
+	EXPECT_EQ(actual,expected);	
+	delete pLocation54ConToRm23;
+}
+
+TEST(IPlayerTests, PlayerSoundsHeardJustWampus){
+	MockLocation pLocation23ConToRm54;
+	MockLocation* pLocation54ConToRm23 = new MockLocation();
+	IPlayer player(pLocation23ConToRm54); 
+	
+	EXPECT_CALL(pLocation23ConToRm54, goThroughTunnel(1))
+		.Times(1)
+		.WillOnce(Return(pLocation54ConToRm23));
+	EXPECT_CALL(*pLocation54ConToRm23, thingStr())
+		.Times(1)
+		.WillOnce(Return("wampus"));
+		
+	std::string expected = "I smell the wampus";
+	std::string actual = player.soundsHeard(1);
+	
+	EXPECT_EQ(actual,expected);	
+	delete pLocation54ConToRm23;
 }
 
 /*test for corruption*/

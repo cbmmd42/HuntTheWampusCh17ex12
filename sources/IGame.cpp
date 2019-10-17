@@ -26,10 +26,27 @@ std::string IGame::shoot(int roomNo1, int roomNo2, int roomNo3){
 	return (player->shoot(roomNo1,roomNo2,roomNo3)) ? "You hit the wampus" : "You missed the wampus";
 }
 
+std::string addSound(std::string s,bool& moreThanOneSound){
+	if(s == "") return "";
+	
+	if(!moreThanOneSound){
+		moreThanOneSound = true;
+		return s;
+	} else {
+		return " and " + s;
+	}
+	
+}
+
 std::string IGame::indication(){
-		std::string sound = player->soundsHeard();
-		prompt(sound);
-		return sound;
+	std::string sound = "";	
+	const int numberOfConnectedRooms = 3;
+	bool moreThanOneSound = false;
+	
+	for(int currentRoom = 1; currentRoom <= numberOfConnectedRooms; ++currentRoom){
+			sound += addSound(player->soundsHeard(currentRoom),moreThanOneSound);
+	}
+	return sound;
 }
 
 bool isValid(std::string s) {

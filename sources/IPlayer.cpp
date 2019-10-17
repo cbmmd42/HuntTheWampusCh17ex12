@@ -20,15 +20,15 @@ bool IPlayer::shoot(int roomNo1, int roomNo2, int roomNo3){
 	//if(!playerLocation->isConnected(roomNo1)){ return false; }
 	int tunnelNo = playerLocation->findTunnelNoFromRoomNo(roomNo1);
 	ILocation* firstLocation = playerLocation->goThroughTunnel(tunnelNo);
-	if(firstLocation->thingStr() == "Wampus") return true;
+	if(firstLocation->thingStr() == "wampus") return true;
 	
 	tunnelNo = firstLocation->findTunnelNoFromRoomNo(roomNo2);
 	ILocation* secondLocation = firstLocation->goThroughTunnel(tunnelNo);
-	if(secondLocation->thingStr() == "Wampus") return true;
+	if(secondLocation->thingStr() == "wampus") return true;
 	
 	tunnelNo = secondLocation->findTunnelNoFromRoomNo(roomNo3);
 	ILocation* thirdLocation = secondLocation->goThroughTunnel(tunnelNo);
-	if(thirdLocation->thingStr() == "Wampus") return true;
+	if(thirdLocation->thingStr() == "wampus") return true;
 	
 	return false;
 }
@@ -41,9 +41,19 @@ bool IPlayer::wampusLives(){
 	return true;
 }
 
-std::string IPlayer::soundsHeard() {
-	//std::string roomNumber = "13";
-	return "I hear a breeze";
+std::string thingStringToOutput(std::string thingString){
+	if(thingString == "pit"){
+		return "I hear a breeze";
+	} else if(thingString == "wampus") {
+		return "I smell the wampus";
+	}	else {
+		return "I hear a " + thingString;
+	}
+}
+
+std::string IPlayer::soundsHeard(int roomChoice) {
+	std::string thingFirstTunnel = playerLocation->goThroughTunnel(roomChoice)->thingStr();	
+	return thingStringToOutput(thingFirstTunnel);
 }
 
 void IPlayer::connectedRooms(int& first, int& second, int& third){

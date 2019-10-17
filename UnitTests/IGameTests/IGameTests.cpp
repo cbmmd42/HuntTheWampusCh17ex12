@@ -11,7 +11,7 @@ class MockPlayer : public IPlayer { // refactor this by makeing it its own file
 public:
 	MOCK_METHOD1(move, std::string(int roomChoice));
 	MOCK_METHOD3(shoot, bool(int roomNo1,int roomNo2,int roomNo3));
-	MOCK_METHOD0(soundsHeard, std::string());
+	MOCK_METHOD1(soundsHeard, std::string(int roomChoice));
 	MOCK_METHOD0(isAlive, bool());
 	MOCK_METHOD0(wampusLives, bool());
 	MOCK_METHOD3(connectedRooms, void(int& first, int& second, int& third));
@@ -57,14 +57,40 @@ TEST(IGameTests, GameInterfaceIndication){
 	MockPlayer mp;
 	IGame g(mp);
 	
-	EXPECT_CALL(mp, soundsHeard())
+	EXPECT_CALL(mp, soundsHeard(1))
 	.Times(1)
 	.WillOnce(Return("I hear a breeze"));
+	EXPECT_CALL(mp, soundsHeard(2))
+	.Times(1)
+	.WillOnce(Return(""));
+	EXPECT_CALL(mp, soundsHeard(3))
+	.Times(1)
+	.WillOnce(Return(""));
 	
 	std::string actual = g.indication();
 	std::cout << '\n';
 	
 	EXPECT_EQ(actual, "I hear a breeze");
+}
+
+TEST(IGameTests, GameInterfaceIndication3){
+	MockPlayer mp;
+	IGame g(mp);
+	
+	EXPECT_CALL(mp, soundsHeard(1))
+	.Times(1)
+	.WillOnce(Return("I hear a breeze"));
+	EXPECT_CALL(mp, soundsHeard(2))
+	.Times(1)
+	.WillOnce(Return(""));
+	EXPECT_CALL(mp, soundsHeard(3))
+	.Times(1)
+	.WillOnce(Return("I smell the wampus"));
+	
+	std::string actual = g.indication();
+	std::cout << '\n';
+	
+	EXPECT_EQ(actual, "I hear a breeze and I smell the wampus");
 }
 
 TEST(IGameTests, GameInterfacePrompt){
