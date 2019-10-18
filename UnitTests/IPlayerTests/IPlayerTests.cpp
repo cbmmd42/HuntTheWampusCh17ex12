@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include "IPlayer.h"
+//#include "IPlayer.h"
+#include "Player.h"
 #include "ILocation.h"
 
 using ::testing::Return;
@@ -19,10 +20,10 @@ class MockLocation : public ILocation { // refactor this by making it its own fi
 };
 
 
-TEST(IPlayerTests, PlayerMoveOneCall){
+TEST(PlayerTests, PlayerMoveOneCall){
 	MockLocation pLocation23ConToRm54;
 	MockLocation* pLocation54ConToRm23 = new MockLocation();
-	IPlayer player(pLocation23ConToRm54); 
+	Player player(pLocation23ConToRm54); 
 	
 	EXPECT_CALL(pLocation23ConToRm54, goThroughTunnel(1))
 		.Times(1)
@@ -38,11 +39,11 @@ TEST(IPlayerTests, PlayerMoveOneCall){
 	delete pLocation54ConToRm23;
 }
 
-TEST(IPlayerTests, PlayerMoveTwoCalls){
+TEST(PlayerTests, PlayerMoveTwoCalls){
 	MockLocation pLocation23ConToRm54;
 	MockLocation* pLocation54ConToRm23 = new MockLocation();
 	MockLocation* pLocation33ConToRm54 = new MockLocation();
-	IPlayer player(pLocation23ConToRm54); 
+	Player player(pLocation23ConToRm54); 
 	
 	EXPECT_CALL(pLocation23ConToRm54, goThroughTunnel(1))
 		.Times(1)
@@ -66,9 +67,9 @@ TEST(IPlayerTests, PlayerMoveTwoCalls){
 	delete pLocation33ConToRm54;
 }
 
-TEST(IPlayerTests, PlayerMoveNullptr){
+TEST(PlayerTests, PlayerMoveNullptr){
 	MockLocation pLocation23ConToRm54;;
-	IPlayer player(pLocation23ConToRm54); 
+	Player player(pLocation23ConToRm54); 
 	
 	EXPECT_CALL(pLocation23ConToRm54, goThroughTunnel(1))
 		.Times(1)
@@ -80,10 +81,10 @@ TEST(IPlayerTests, PlayerMoveNullptr){
 	EXPECT_EQ(actual,expected);	
 }
 
-TEST(IPlayerTests, PlayerShootWampusInFirst){
+TEST(PlayerTests, PlayerShootWampusInFirst){
 	MockLocation* pLocation15ConToRm1 = new MockLocation();
 	MockLocation* pLocation1ConToRm5 = new MockLocation();
-	IPlayer player(*pLocation15ConToRm1); 	
+	Player player(*pLocation15ConToRm1); 	
 	
 	EXPECT_CALL(*pLocation15ConToRm1, findTunnelNoFromRoomNo(5))
 		.Times(1)
@@ -101,11 +102,11 @@ TEST(IPlayerTests, PlayerShootWampusInFirst){
 	delete pLocation1ConToRm5; 
 }
 
-TEST(IPlayerTests, PlayerShootWampusInSecond){
+TEST(PlayerTests, PlayerShootWampusInSecond){
 	MockLocation* pLocation15ConToRm1 = new MockLocation();
 	MockLocation* pLocation1ConToRm5 = new MockLocation();
 	MockLocation* pLocation5ConToRm7 = new MockLocation();
-	IPlayer player(*pLocation15ConToRm1); 
+	Player player(*pLocation15ConToRm1); 
 		
 	EXPECT_CALL(*pLocation15ConToRm1, findTunnelNoFromRoomNo(5))
 		.Times(1)
@@ -134,12 +135,12 @@ TEST(IPlayerTests, PlayerShootWampusInSecond){
 	delete pLocation5ConToRm7;
 }
 
-TEST(IPlayerTests, PlayerShootWampusInThird){
+TEST(PlayerTests, PlayerShootWampusInThird){
 	MockLocation* pLocation15ConToRm1 = new MockLocation();
 	MockLocation* pLocation1ConToRm5 = new MockLocation();
 	MockLocation* pLocation5ConToRm7 = new MockLocation();
 	MockLocation* pLocation7ConToRm54 = new MockLocation();
-	IPlayer player(*pLocation15ConToRm1); 
+	Player player(*pLocation15ConToRm1); 
 	
 	
 	
@@ -184,7 +185,7 @@ TEST(IPlayerTests, PlayerShootWampusInThird){
 TEST(IPlayerTests, PlayerSoundsHeardJustBat){
 	MockLocation pLocation23ConToRm54;
 	MockLocation* pLocation54ConToRm23 = new MockLocation();
-	IPlayer player(pLocation23ConToRm54); 
+	Player player(pLocation23ConToRm54); 
 	
 	EXPECT_CALL(pLocation23ConToRm54, goThroughTunnel(1))
 		.Times(1)
@@ -200,10 +201,10 @@ TEST(IPlayerTests, PlayerSoundsHeardJustBat){
 	delete pLocation54ConToRm23;
 }
 
-TEST(IPlayerTests, PlayerSoundsHeardJustPit){
+TEST(PlayerTests, PlayerSoundsHeardJustPit){
 	MockLocation pLocation23ConToRm54;
 	MockLocation* pLocation54ConToRm23 = new MockLocation();
-	IPlayer player(pLocation23ConToRm54); 
+	Player player(pLocation23ConToRm54); 
 	
 	EXPECT_CALL(pLocation23ConToRm54, goThroughTunnel(1))
 		.Times(1)
@@ -222,7 +223,7 @@ TEST(IPlayerTests, PlayerSoundsHeardJustPit){
 TEST(IPlayerTests, PlayerSoundsHeardJustWampus){
 	MockLocation pLocation23ConToRm54;
 	MockLocation* pLocation54ConToRm23 = new MockLocation();
-	IPlayer player(pLocation23ConToRm54); 
+	Player player(pLocation23ConToRm54); 
 	
 	EXPECT_CALL(pLocation23ConToRm54, goThroughTunnel(1))
 		.Times(1)
@@ -236,6 +237,56 @@ TEST(IPlayerTests, PlayerSoundsHeardJustWampus){
 	
 	EXPECT_EQ(actual,expected);	
 	delete pLocation54ConToRm23;
+}
+
+TEST(PlayerTests, PlayerSoundsHeardNothing){
+	MockLocation pLocation23ConToRm54;
+	MockLocation* pLocation54ConToRm23 = new MockLocation();
+	Player player(pLocation23ConToRm54); 
+	
+	EXPECT_CALL(pLocation23ConToRm54, goThroughTunnel(1))
+		.Times(1)
+		.WillOnce(Return(pLocation54ConToRm23));
+	EXPECT_CALL(*pLocation54ConToRm23, thingStr())
+		.Times(1)
+		.WillOnce(Return(""));
+		
+	std::string expected = "";
+	std::string actual = player.soundsHeard(1);
+	
+	EXPECT_EQ(actual,expected);	
+	delete pLocation54ConToRm23;
+}
+
+TEST(PlayerTests, PlayerSoundsHeardWampusAndPitAndBat){
+	MockLocation pLocation23ConToRm54;
+	MockLocation* pLocation54ConToRm23 = new MockLocation();
+	MockLocation* pLocation5ConToRm23 = new MockLocation();
+	Player player(pLocation23ConToRm54); 
+	
+	EXPECT_CALL(pLocation23ConToRm54, goThroughTunnel(1))
+		.Times(1)
+		.WillOnce(Return(pLocation54ConToRm23));
+	EXPECT_CALL(*pLocation54ConToRm23, thingStr())
+		.Times(1)
+		.WillOnce(Return("wampus"));
+	EXPECT_CALL(pLocation23ConToRm54, goThroughTunnel(2))
+		.Times(1)
+		.WillOnce(Return(pLocation5ConToRm23));
+	EXPECT_CALL(*pLocation5ConToRm23, thingStr())
+		.Times(1)
+		.WillOnce(Return("pit"));
+		
+	std::string expected = "I smell the wampus";
+	std::string expected2 = "I hear a breeze";
+	std::string actual = player.soundsHeard(1);
+	std::string actual2 = player.soundsHeard(2);
+	
+	
+	EXPECT_EQ(actual,expected);	
+	EXPECT_EQ(actual2,expected2);	
+	delete pLocation54ConToRm23;
+	delete pLocation5ConToRm23;
 }
 
 /*test for corruption*/
