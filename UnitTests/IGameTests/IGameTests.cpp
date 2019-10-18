@@ -28,7 +28,8 @@ public:
 
 TEST(IGameTests, GameInterfaceMove){
 	MockPlayer mp;
-	IGame g(mp);
+	MockUserInput i;
+	IGame g(mp,i);
 	
 	EXPECT_CALL(mp, move(3))
 	.Times(1)
@@ -42,7 +43,8 @@ TEST(IGameTests, GameInterfaceMove){
 
 TEST(IGameTests, GameInterfaceShoot){
 	MockPlayer mp;
-	IGame g(mp);
+	MockUserInput i;
+	IGame g(mp,i);
 	
 	EXPECT_CALL(mp, shoot(3, 14 ,16))
 	.Times(1)
@@ -55,7 +57,8 @@ TEST(IGameTests, GameInterfaceShoot){
 
 TEST(IGameTests, GameInterfaceIndication){
 	MockPlayer mp;
-	IGame g(mp);
+	MockUserInput i;
+	IGame g(mp,i);
 	
 	EXPECT_CALL(mp, soundsHeard(1))
 	.Times(1)
@@ -75,7 +78,8 @@ TEST(IGameTests, GameInterfaceIndication){
 
 TEST(IGameTests, GameInterfaceIndication3){
 	MockPlayer mp;
-	IGame g(mp);
+	MockUserInput i;
+	IGame g(mp,i);
 	
 	EXPECT_CALL(mp, soundsHeard(1))
 	.Times(1)
@@ -95,7 +99,8 @@ TEST(IGameTests, GameInterfaceIndication3){
 
 TEST(IGameTests, GameInterfacePrompt){
 	MockPlayer mp;
-	IGame g(mp);
+	MockUserInput i;
+	IGame g(mp,i);
 	
 	g.prompt("This is a test of the prompt() function");
 	std::cout << '\n';
