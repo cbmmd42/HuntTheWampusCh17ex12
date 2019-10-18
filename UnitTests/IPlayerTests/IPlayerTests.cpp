@@ -1,6 +1,5 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-//#include "IPlayer.h"
 #include "Player.h"
 #include "ILocation.h"
 
