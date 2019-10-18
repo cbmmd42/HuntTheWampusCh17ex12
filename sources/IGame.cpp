@@ -1,11 +1,5 @@
 #include "IGame.h"
 
-IGame::IGame(IPlayer& p)
-{
-	player = &p;
-	gameInput = new IUserInput();
-}
-
 IGame::IGame(IPlayer& p, IUserInput& i)
 {
 	player = &p;

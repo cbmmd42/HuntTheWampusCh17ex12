@@ -5,16 +5,12 @@
 
 class IPlayer {
 public:
-	//IPlayer();
-	//IPlayer(ILocation& l);
 	virtual std::string move(int roomChoice) = 0;
 	virtual bool shoot(int roomNo1,int roomNo2, int roomNo3) = 0;
 	virtual std::string soundsHeard(int roomChoice) = 0;
 	virtual void connectedRooms(int& first, int& second, int& third) = 0;
 	virtual bool isAlive() = 0;
 	virtual bool wampusLives() = 0;
-//private:
-	//ILocation* playerLocation;	
 };
 
 #endif /*IPLAYER_HPP*/

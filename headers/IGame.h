@@ -8,7 +8,6 @@ class IGame {
 	IPlayer* player;
 	IUserInput* gameInput;
 public:
-	IGame(IPlayer& p);
 	IGame(IPlayer& p, IUserInput& i);
 	virtual void prompt(std::string s);
 	virtual std::string connectedRooms(int& first, int& second, int& third);
