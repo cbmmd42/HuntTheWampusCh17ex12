@@ -1,4 +1,4 @@
-#include "IUserInput.h"
+#include "UserInput.h"
 
 std::string IUserInput::getInput(){
 	return "";
