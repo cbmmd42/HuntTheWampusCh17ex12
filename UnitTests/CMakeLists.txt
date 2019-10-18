@@ -25,12 +25,12 @@ set(IPlayerHeaders
 
 set(IGameSources
 	../sources/IGame.cpp
-	../sources/IPlayer.cpp
+	../sources/Player.cpp
 	../sources/IUserInput.cpp
 )
 
 set(IPlayerSources
-	../sources/IPlayer.cpp
+	../sources/Player.cpp
 )
 
 add_library(IGame STATIC ${IGameHeaders} ${IGameSources})
