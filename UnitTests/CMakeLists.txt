@@ -26,7 +26,6 @@ set(IPlayerHeaders
 set(IGameSources
 	../sources/IGame.cpp
 	../sources/Player.cpp
-	../sources/IUserInput.cpp
 )
 
 set(IPlayerSources
