@@ -38,5 +38,5 @@ add_library(IPlayer STATIC ${IPlayerHeaders} ${IPlayerSources})
 
 add_subdirectory(GameTests)
 
-add_subdirectory(IPlayerTests)
+add_subdirectory(PlayerTests)
 
