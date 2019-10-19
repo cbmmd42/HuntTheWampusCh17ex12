@@ -14,7 +14,7 @@ add_subdirectory(googletest)
 include_directories(../headers/)
 
 set(IGameHeaders 
-	../headers/IGame.h
+	../headers/Game.h
 	../headers/IPlayer.h
 	../headers/IUserInput.h
 )
@@ -24,7 +24,7 @@ set(IPlayerHeaders
 )
 
 set(IGameSources
-	../sources/IGame.cpp
+	../sources/Game.cpp
 	../sources/Player.cpp
 )
 
@@ -36,7 +36,7 @@ add_library(IGame STATIC ${IGameHeaders} ${IGameSources})
 
 add_library(IPlayer STATIC ${IPlayerHeaders} ${IPlayerSources})
 
-add_subdirectory(IGameTests)
+add_subdirectory(GameTests)
 
 add_subdirectory(IPlayerTests)
 
