@@ -24,6 +24,7 @@ public:
 	MOCK_METHOD0(getInputMove, int());
 	MOCK_METHOD3(getInputShoot, void(int& firstRoom, int& secondRoom, int& thirdRoom));
 	MOCK_METHOD0(lastInput, std::string());
+	MOCK_METHOD1(isValid, bool(std::string s));
 };
 
 TEST(GameTests, GameInterfaceMove){
@@ -114,6 +115,9 @@ TEST(GameTests, GameInterfaceUserInput){
 	EXPECT_CALL(i, getInput())
 	.Times(1)
 	.WillOnce(Return("move"));
+	EXPECT_CALL(i, isValid("move"))
+	.Times(1)
+	.WillOnce(Return(true));
 	
 	char actual = g.userInput();
 	char expected = 'm';
@@ -151,6 +155,12 @@ TEST(GameTests, GameInterfaceUserInputTypo){
 	.Times(2)
 	.WillOnce(Return("mve"))
 	.WillOnce(Return("move"));
+	EXPECT_CALL(i, isValid("mve"))
+	.Times(1)
+	.WillOnce(Return(false));
+	EXPECT_CALL(i, isValid("move"))
+	.Times(1)
+	.WillOnce(Return(true));
 	
 	char actual = g.userInput();
 	char expected = 'm';
@@ -165,6 +175,9 @@ TEST(GameTests, GameInterfaceUserInputShoot){
 	EXPECT_CALL(i, getInput())
 	.Times(1)
 	.WillOnce(Return("shoot"));
+	EXPECT_CALL(i, isValid("shoot"))
+	.Times(1)
+	.WillOnce(Return(true));
 	
 	char actual = g.userInput();
 	char expected = 's';

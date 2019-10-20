@@ -43,18 +43,11 @@ std::string Game::indication(){
 	return sound;
 }
 
-bool isValid(std::string s) {
-	if(s == "move" || s == "shoot"){
-		return true;
-	}
-	return false;
-}
-
 char Game::userInput() {
-	std::string input = gameInput->getInput();
-	while(!isValid(input)){ // refactor to put isValid in UserInput
+	std::string input = "";
+	do { 
 		input = gameInput->getInput();
-	}		
+	} while(!gameInput->isValid(input));
 	return input[0];
 }
 

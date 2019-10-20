@@ -1,17 +1,24 @@
 #include "UserInput.h"
 
-std::string IUserInput::getInput(){
+std::string UserInput::getInput(){
 	return "";
 }
 
-std::string IUserInput::lastInput(){
+std::string UserInput::lastInput(){
 	return "";
 }
 
-int IUserInput::getInputMove(){
+int UserInput::getInputMove(){
 	return 0;
 }
 
-void IUserInput::getInputShoot(int& firstRoom, int& secondRoom, int& thirdRoom){
+void UserInput::getInputShoot(int& firstRoom, int& secondRoom, int& thirdRoom){
 	
+}
+
+bool UserInput::isValid(std::string s) {
+	if(s == "move" || s == "shoot"){
+		return true;
+	}
+	return false;
 }

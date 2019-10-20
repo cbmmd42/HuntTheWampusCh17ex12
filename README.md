@@ -28,32 +28,32 @@ general plan
 top down design phase one
 
 while(exitcondition)
-	IGame Indication done
-	IGame Prompt done 
-	IGame input done
-	IGame action(move or shoot) done 
-	IGame Prompt done 
-	exit condition = IGame verify done
+	Game Indication done
+	Game Prompt done 
+	Game input done
+	Game action(move or shoot) done 
+	Game Prompt done 
+	exit condition = Game verify done
 	
 top down design phase two
 
-IGame Indication done
-	implementation IPlayer -- -- soundsHeard()
-IGame Prompt done 
+Game Indication done
+	implementation Player -- -- soundsHeard() done
+Game Prompt done 
 	implementation done 
-IGame input done
+Game input done
 	implementation IUserInput -- -- getInput()
 	implementation IUserInput -- -- isValid()
 	implementation IUserInput -- -- getInputMove()
 	implementation IUserInput -- -- getInputShoot(firstRoom, secondRoom, thirdRoom)
-IGame action(move or shoot) done 
-	implementation IPlayer -- -- move(roomChoice)
-	implementation IPlayer -- -- shoot(roomNo1,roomNo2,roomNo3)
-IGame Prompt done 
+Game action(move or shoot) done 
+	implementation Player -- -- move(roomChoice) done 
+	implementation Player -- -- shoot(roomNo1,roomNo2,roomNo3) done 
+Game Prompt done 
 	implementation done
-exit condition = IGame verify done
-	implementation IPlayer -- -- wampusLives()
-	implementation IPlayer -- -- isAlive()
+exit condition = Game verify done
+	implementation Player -- -- wampusLives() 
+	implementation Player -- -- isAlive()
 	implementation IUserInput -- -- lastInput()
 	
 Since I have to implement two classes I have to set up two unit tests.

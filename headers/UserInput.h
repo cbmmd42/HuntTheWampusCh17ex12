@@ -9,6 +9,7 @@ class UserInput : public IUserInput {
 	virtual std::string lastInput() override;
 	virtual int getInputMove() override;
 	virtual void getInputShoot(int& firstRoom, int& secondRoom, int& thirdRoom) override;
+	virtual bool isValid(std::string s) override;
 };
 
 #endif /*USERINPUT_HPP*/
