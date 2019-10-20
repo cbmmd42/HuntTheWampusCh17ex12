@@ -6,6 +6,7 @@ Player::Player(){
 
 Player::Player(ILocation& l){
 	playerLocation = &l;
+	wampusIsAlive = true;
 }
 
 std::string Player::move(int roomChoice){
@@ -20,15 +21,24 @@ bool Player::shoot(int roomNo1, int roomNo2, int roomNo3){
 	//if(!playerLocation->isConnected(roomNo1)){ return false; }
 	int tunnelNo = playerLocation->findTunnelNoFromRoomNo(roomNo1);
 	ILocation* firstLocation = playerLocation->goThroughTunnel(tunnelNo);
-	if(firstLocation->thingStr() == "wampus") return true;
+	if(firstLocation->thingStr() == "wampus") {
+		wampusIsAlive = false;
+		return true; // refactor
+	}
 	
 	tunnelNo = firstLocation->findTunnelNoFromRoomNo(roomNo2);
 	ILocation* secondLocation = firstLocation->goThroughTunnel(tunnelNo);
-	if(secondLocation->thingStr() == "wampus") return true;
+	if(secondLocation->thingStr() == "wampus") {
+		wampusIsAlive = false;
+		return true;
+	}
 	
 	tunnelNo = secondLocation->findTunnelNoFromRoomNo(roomNo3);
 	ILocation* thirdLocation = secondLocation->goThroughTunnel(tunnelNo);
-	if(thirdLocation->thingStr() == "wampus") return true;
+	if(thirdLocation->thingStr() == "wampus") {
+		wampusIsAlive = false;
+		return true;
+	}
 	
 	return false;
 }
@@ -37,8 +47,8 @@ bool Player::isAlive() {
 	return true;
 }
 
-bool Player::wampusLives(){
-	return true;
+bool Player::wampusLives(){	
+	return wampusIsAlive;
 }
 
 std::string thingStringToOutput(std::string thingString){

@@ -181,7 +181,7 @@ TEST(PlayerTests, PlayerShootWampusInThird){
 	delete pLocation7ConToRm54;	
 }
 
-TEST(IPlayerTests, PlayerSoundsHeardJustBat){
+TEST(PlayerTests, PlayerSoundsHeardJustBat){
 	MockLocation pLocation23ConToRm54;
 	MockLocation* pLocation54ConToRm23 = new MockLocation();
 	Player player(pLocation23ConToRm54); 
@@ -219,7 +219,7 @@ TEST(PlayerTests, PlayerSoundsHeardJustPit){
 	delete pLocation54ConToRm23;
 }
 
-TEST(IPlayerTests, PlayerSoundsHeardJustWampus){
+TEST(PlayerTests, PlayerSoundsHeardJustWampus){
 	MockLocation pLocation23ConToRm54;
 	MockLocation* pLocation54ConToRm23 = new MockLocation();
 	Player player(pLocation23ConToRm54); 
@@ -287,6 +287,81 @@ TEST(PlayerTests, PlayerSoundsHeardWampusAndPitAndBat){
 	delete pLocation54ConToRm23;
 	delete pLocation5ConToRm23;
 }
+
+TEST(PlayerTests, PlayerWampusLivesFalse){
+	MockLocation* pLocation15ConToRm1 = new MockLocation();
+	MockLocation* pLocation1ConToRm5 = new MockLocation();
+	Player player(*pLocation15ConToRm1); 	
+	
+	EXPECT_CALL(*pLocation15ConToRm1, findTunnelNoFromRoomNo(5))
+		.Times(1)
+		.WillOnce(Return(1));
+	EXPECT_CALL(*pLocation15ConToRm1, goThroughTunnel(1))
+		.Times(1)
+		.WillOnce(Return(pLocation1ConToRm5));
+	EXPECT_CALL(*pLocation1ConToRm5, thingStr())
+		.Times(1)
+		.WillOnce(Return("wampus"));	
+	player.shoot(5,7,54);
+	bool actual = player.wampusLives();
+	bool expected = false;
+	EXPECT_EQ(actual,expected);	
+	delete pLocation15ConToRm1;
+	delete pLocation1ConToRm5;
+}
+
+TEST(PlayerTests, PlayerWampusLivesTrue){
+	MockLocation* pLocation15ConToRm1 = new MockLocation();
+	MockLocation* pLocation1ConToRm5 = new MockLocation();
+	MockLocation* pLocation5ConToRm7 = new MockLocation();
+	MockLocation* pLocation7ConToRm54 = new MockLocation();
+	Player player(*pLocation15ConToRm1); 
+	
+	
+	
+	EXPECT_CALL(*pLocation15ConToRm1, findTunnelNoFromRoomNo(5))
+		.Times(1)
+		.WillOnce(Return(1));
+	EXPECT_CALL(*pLocation15ConToRm1, goThroughTunnel(1))
+		.Times(1)
+		.WillOnce(Return(pLocation1ConToRm5));
+	EXPECT_CALL(*pLocation1ConToRm5, thingStr())
+		.Times(1)
+		.WillOnce(Return("bat"));
+	EXPECT_CALL(*pLocation1ConToRm5, findTunnelNoFromRoomNo(7))
+		.Times(1)
+		.WillOnce(Return(2));
+	EXPECT_CALL(*pLocation1ConToRm5, goThroughTunnel(2))
+		.Times(1)
+		.WillOnce(Return(pLocation5ConToRm7));
+	EXPECT_CALL(*pLocation5ConToRm7, thingStr())
+		.Times(1)
+		.WillOnce(Return("pit"));
+	EXPECT_CALL(*pLocation5ConToRm7, findTunnelNoFromRoomNo(54))
+		.Times(1)
+		.WillOnce(Return(3));
+	EXPECT_CALL(*pLocation5ConToRm7, goThroughTunnel(3))
+		.Times(1)
+		.WillOnce(Return(pLocation7ConToRm54));
+	EXPECT_CALL(*pLocation7ConToRm54, thingStr())
+		.Times(1)
+		.WillOnce(Return(""));	
+	
+	player.shoot(5,7,54);
+	bool actual = player.wampusLives();
+	bool expected = true;
+
+	EXPECT_EQ(actual,expected);	
+
+	delete pLocation15ConToRm1;
+	delete pLocation1ConToRm5; 
+	delete pLocation5ConToRm7;
+	delete pLocation7ConToRm54;	//refactor to make the test for wampusIsAlive
+	// in the shoot tests so that I can remove expect calls for shooot
+	//from my test for wampusLives();
+}
+
+
 
 /*test for corruption*/
 

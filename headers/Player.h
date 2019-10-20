@@ -16,6 +16,7 @@ public:
 	bool wampusLives() override;
 private:
 	ILocation* playerLocation;	
+	bool wampusIsAlive;
 };
 
 #endif /*IPLAYER_HPP*/
