@@ -22,7 +22,7 @@ bool Player::shoot(int roomNo1, int roomNo2, int roomNo3){
 	ILocation* firstLocation = playerLocation->goThroughTunnel(tunnelNo);
 	if(firstLocation->thingStr() == "wampus") {
 		wampusIsAlive = false;
-		return true; // refactor
+		return true; // refactor maybe not first attempt failed
 	}
 	
 	tunnelNo = firstLocation->findTunnelNoFromRoomNo(roomNo2);
