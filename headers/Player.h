@@ -6,7 +6,6 @@
 
 class Player : public IPlayer {
 public:
-	Player();
 	Player(ILocation& l);
 	std::string move(int roomChoice) override;
 	bool shoot(int roomNo1,int roomNo2, int roomNo3) override;

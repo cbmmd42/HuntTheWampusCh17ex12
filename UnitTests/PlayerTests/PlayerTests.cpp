@@ -361,6 +361,54 @@ TEST(PlayerTests, PlayerWampusLivesTrue){
 	//from my test for wampusLives();
 }
 
+TEST(PlayerTests, PlayerIsAliveWampInRoom){
+	MockLocation* pLocation = new MockLocation();
+	Player player(*pLocation); 
+	
+	EXPECT_CALL(*pLocation, thingStr())
+		.Times(1)
+		.WillOnce(Return("wampus"));
+
+	bool actual = player.isAlive();
+	bool expected = false;
+
+	EXPECT_EQ(actual,expected);	
+
+	delete pLocation;
+}
+
+TEST(PlayerTests, PlayerIsAlivePitInRoom){
+	MockLocation* pLocation = new MockLocation();
+	Player player(*pLocation); 
+	
+	EXPECT_CALL(*pLocation, thingStr())
+		.Times(1)
+		.WillOnce(Return("pit"));
+		
+	bool actual = player.isAlive();
+	bool expected = false;
+
+	EXPECT_EQ(actual,expected);	
+
+	delete pLocation;
+}
+
+TEST(PlayerTests, PlayerIsAliveBatInRoom){
+	MockLocation* pLocation = new MockLocation();
+	Player player(*pLocation); 
+	
+	EXPECT_CALL(*pLocation, thingStr())
+		.Times(1)
+		.WillOnce(Return("bat"));
+		
+	bool actual = player.isAlive();
+	bool expected = true;
+
+	EXPECT_EQ(actual,expected);	
+
+	delete pLocation;
+}
+
 
 
 /*test for corruption*/

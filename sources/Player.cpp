@@ -1,8 +1,5 @@
 #include "Player.h"
 
-Player::Player(){
-	playerLocation = nullptr;
-}
 
 Player::Player(ILocation& l){
 	playerLocation = &l;
@@ -17,8 +14,10 @@ std::string Player::move(int roomChoice){
 	return roomNumber;
 }
 
+
+
 bool Player::shoot(int roomNo1, int roomNo2, int roomNo3){
-	//if(!playerLocation->isConnected(roomNo1)){ return false; }
+
 	int tunnelNo = playerLocation->findTunnelNoFromRoomNo(roomNo1);
 	ILocation* firstLocation = playerLocation->goThroughTunnel(tunnelNo);
 	if(firstLocation->thingStr() == "wampus") {
@@ -44,6 +43,8 @@ bool Player::shoot(int roomNo1, int roomNo2, int roomNo3){
 }
 
 bool Player::isAlive() {
+	std::string thing = playerLocation->thingStr();
+	if(thing == "wampus"|| thing == "pit") return false;
 	return true;
 }
 
