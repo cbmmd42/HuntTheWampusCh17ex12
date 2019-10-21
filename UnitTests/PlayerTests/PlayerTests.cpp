@@ -409,6 +409,51 @@ TEST(PlayerTests, PlayerIsAliveBatInRoom){
 	delete pLocation;
 }
 
+TEST(PlayerTests, PlayerConnectedRooms){
+	MockLocation* pLocation15ConToRm1 = new MockLocation();
+
+	MockLocation* pLocation1ConToRm15 = new MockLocation();
+	MockLocation* pLocation5ConToRm15 = new MockLocation();
+	MockLocation* pLocation7ConToRm15 = new MockLocation();
+	int actualFirst = 0;
+	int actualSecond = 0;
+	int actualThird = 0;
+	Player player(*pLocation15ConToRm1); 
+	
+	EXPECT_CALL(*pLocation15ConToRm1, goThroughTunnel(1))
+		.Times(1)
+		.WillOnce(Return(pLocation1ConToRm15));
+	EXPECT_CALL(*pLocation1ConToRm15, roomNumber())
+		.Times(1)
+		.WillOnce(Return(1));
+	EXPECT_CALL(*pLocation15ConToRm1, goThroughTunnel(2))
+		.Times(1)
+		.WillOnce(Return(pLocation5ConToRm15));
+	EXPECT_CALL(*pLocation5ConToRm15, roomNumber())
+		.Times(1)
+		.WillOnce(Return(5));
+	EXPECT_CALL(*pLocation15ConToRm1, goThroughTunnel(3))
+		.Times(1)
+		.WillOnce(Return(pLocation7ConToRm15));
+	EXPECT_CALL(*pLocation7ConToRm15, roomNumber())
+		.Times(1)
+		.WillOnce(Return(7));
+
+	player.connectedRooms(actualFirst,actualSecond,actualThird);
+	int expectedFirst = 1;
+	int expectedSecond = 5;
+	int expectedThird = 7;
+
+	EXPECT_EQ(actualFirst,expectedFirst);	
+	EXPECT_EQ(actualSecond,expectedSecond);	
+	EXPECT_EQ(actualThird,expectedThird);	
+
+	delete pLocation15ConToRm1;
+	delete pLocation1ConToRm15; 
+	delete pLocation5ConToRm15;
+	delete pLocation7ConToRm15;
+}
+
 
 
 /*test for corruption*/

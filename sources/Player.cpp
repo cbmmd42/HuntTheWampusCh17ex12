@@ -70,5 +70,7 @@ std::string Player::soundsHeard(int roomChoice) {
 }
 
 void Player::connectedRooms(int& first, int& second, int& third){
-	
+	first = playerLocation->goThroughTunnel(1)->roomNumber();
+	second = playerLocation->goThroughTunnel(2)->roomNumber();
+	third = playerLocation->goThroughTunnel(3)->roomNumber();
 }
