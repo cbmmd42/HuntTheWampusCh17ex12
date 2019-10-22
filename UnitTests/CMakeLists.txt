@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.1)
 
-set(This IGame)
+set(This UnitTests)
 
 project(${This} CXX)
 
@@ -13,30 +13,42 @@ add_subdirectory(googletest)
 
 include_directories(../headers/)
 
-set(IGameHeaders 
+set(GameHeaders 
 	../headers/Game.h
 	../headers/IPlayer.h
 	../headers/IUserInput.h
 )
 
-set(IPlayerHeaders 
+set(PlayerHeaders 
 	../headers/IPlayer.h
 )
 
-set(IGameSources
+set(UserInputHeaders 
+	../headers/UserInput.h
+)
+
+set(GameSources
 	../sources/Game.cpp
 	../sources/Player.cpp
 )
 
-set(IPlayerSources
+set(PlayerSources
 	../sources/Player.cpp
 )
 
-add_library(IGame STATIC ${IGameHeaders} ${IGameSources})
+set(UserInputSources
+	../sources/UserInput.cpp
+)
 
-add_library(IPlayer STATIC ${IPlayerHeaders} ${IPlayerSources})
+add_library(Game STATIC ${GameHeaders} ${GameSources})
+
+add_library(Player STATIC ${PlayerHeaders} ${PlayerSources})
+
+add_library(UserInput STATIC ${UserInputHeaders} ${UserInputSources})
 
 add_subdirectory(GameTests)
 
 add_subdirectory(PlayerTests)
+
+add_subdirectory(UserInputTests)
 
