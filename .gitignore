@@ -5,3 +5,7 @@
 *Makefile
 *.a
 *.exe
+*googletest/
+UnitTests/GameTests/GameTests
+UnitTests/PlayerTests/PlayerTests
+UnitTests/UserInputTests/UserInputTests
