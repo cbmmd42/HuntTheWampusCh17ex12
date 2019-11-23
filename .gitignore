@@ -1,0 +1,7 @@
+*.cmake
+*CMakeFiles/
+*CMakeCache.txt
+*.vscode/
+*Makefile
+*.a
+*.exe
